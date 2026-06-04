@@ -14,12 +14,18 @@ Showcase aims to become a **curated luxury marketplace**—combining editorial b
 
 The POC validates brand direction, mobile-first UX, and stakeholder alignment before Phase 1 investment. Our recommendation is a **headless architecture**: **Python (FastAPI or Django) API** with **PostgreSQL**, paired with a **Next.js** storefront—deliberately **not** Shopify—giving full control over luxury UX, multi-vendor logic, and future property/listing extensions.
 
+**Live POC:** https://showcase-website-ochre.vercel.app/
+
 **Immediate deliverables in this package:**
 
 - Deployable static demo (Vercel-ready)
-- 15 mock luxury SKUs across five categories
+- 16 mock luxury SKUs across five categories
 - Session-persisted cart, wishlist, and USD/EUR display
 - This proposal: phases, stack comparison, timelines, costs, and next steps
+- Client review checklist: [`docs/CLIENT_REVIEW.md`](docs/CLIENT_REVIEW.md)
+- Backend decision (Django for Phase 1): [`docs/BACKEND_DECISION.md`](docs/BACKEND_DECISION.md)
+- Deployment / repo strategy: [`docs/DEPLOYMENT.md`](docs/DEPLOYMENT.md)
+- Phase 1 monorepo scaffold: [`../showcase-platform/`](../showcase-platform/)
 
 ---
 
@@ -147,7 +153,7 @@ You asked to **skip Shopify** and prefer **Python backend + JavaScript frontend*
 
 ### Clear Recommendation
 
-**Option A: FastAPI (or Django if admin speed wins) + PostgreSQL + Next.js**, deployed with API on AWS (ECS/Lambda) or Railway/Render, storefront on **Vercel**, media on **S3 + CloudFront**.
+**Option A: Django + PostgreSQL + Next.js** (Phase 1 backend locked — see [`docs/BACKEND_DECISION.md`](docs/BACKEND_DECISION.md)), deployed with API on AWS (ECS/Lambda) or Railway/Render, storefront on **Vercel**, media on **S3 + CloudFront**.
 
 **Rationale in one line:** Showcase is a **brand-led, multi-phase platform**—not a template store. Python gives you backend flexibility for vendors, property, and AI; Next.js delivers the editorial front office; PostgreSQL anchors relational commerce data without Shopify constraints.
 
@@ -319,10 +325,11 @@ Ranges are realistic for US/EU agencies or experienced contractors (2026). Actua
 
 ## Appendix — POC Technical Notes
 
-- **Stack:** Static HTML, CSS, ES modules (`products.js`, `js/app.js`)
+- **Stack:** Static HTML, CSS, vanilla JS (`products.js` + `js/app.js` via script tags)
 - **State:** `sessionStorage` keys `showcase_cart`, `showcase_wishlist`, `showcase_currency`
 - **EUR conversion:** USD × 0.92 (display only)
-- **Deploy:** GitHub → Vercel, no build step
+- **Deploy:** GitHub → Vercel, no build step (see [`docs/DEPLOYMENT.md`](docs/DEPLOYMENT.md))
+- **Production:** Different stack — Next.js + Django + PostgreSQL (`showcase-platform/`)
 
 ---
 
